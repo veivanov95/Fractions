@@ -26,7 +26,7 @@ public class Fraction {
 	}
 	public static String fracToString(Fraction f){
 		if (f == null){
-			return "Ошибка в выражении!";
+			return "Input Error!";
 		}
 		if (f.numerator == 0){
 			return ("0");
@@ -78,7 +78,7 @@ public class Fraction {
 		return  strokesArray;
 	}
 	public static void printFile(String[] s){
-		System.out.println("Вы ввели следующие выражения:");
+		System.out.println("You have entered the following data:");
 		for(int i=0; i<s.length;i++){
 			System.out.println(s[i]);
 		}
@@ -93,7 +93,7 @@ public class Fraction {
 		String s ="";
 		for(int i =0; i<c.size();i++)
 			s+=c.get(i);
-		Pattern p = Pattern.compile("[0-9][/][1-9][*+-:/][0-9][/][1-9]"); //любая цифра, потом /, потом 1-9, потом знак и тд
+		Pattern p = Pattern.compile("[0-9][/][1-9][*+-:/][0-9][/][1-9]");
 		Matcher m = p.matcher(s);
 		return m.matches();
 	}
@@ -108,16 +108,16 @@ public class Fraction {
 		//printFile(s);
 		Fraction[] fractions = new Fraction[s.length];
 		char[] stringMass = new char[s.length];
-		ArrayList<ArrayList<Character>> stringMassChanged = new ArrayList<ArrayList<Character>>(); //измененный массив
-		for (int i=0; i<s.length; i++){ //проходим по всем строкам файла
+		ArrayList<ArrayList<Character>> stringMassChanged = new ArrayList<ArrayList<Character>>(); 
+		for (int i=0; i<s.length; i++){ 
 			ArrayList<Character> stringMassProm = new ArrayList<Character>();
-			stringMass=s[i].toCharArray(); //переводим строки в чары
-			for (int j=0; j<stringMass.length; j++){//проходим по каждому символу массива
-				if(stringMass[j]!=' '){//убираем пробелы
-					stringMassProm.add((Character)stringMass[j]); //получили строку без пробелов
+			stringMass=s[i].toCharArray(); 
+			for (int j=0; j<stringMass.length; j++){
+				if(stringMass[j]!=' '){//ГіГЎГЁГ°Г ГҐГ¬ ГЇГ°Г®ГЎГҐГ«Г»
+					stringMassProm.add((Character)stringMass[j]); 
 				}
 			}
-			stringMassChanged.add(stringMassProm); //добавляем массив чаров без пробелов
+			stringMassChanged.add(stringMassProm); 
 		}
 		for(int i=0; i<stringMassChanged.size();i++){
 			if (checkWithRexExp(stringMassChanged.get(i))){
@@ -144,7 +144,7 @@ public class Fraction {
 public static void frintFracs(Fraction[] fr){
 	for (int i =0; i<fr.length;i++){
 		if(fr[i]==null){
-			System.out.println("Ошибка в выражении!");
+			System.out.println("Input Error!");
 		}
 		else{
 		System.out.println(fr[i]);
@@ -153,11 +153,11 @@ public static void frintFracs(Fraction[] fr){
 	
 }
 public static void printInFile(Fraction[] fr, String[] s){
-	System.out.println("Результат вычислений:");
+	System.out.println("ГђГҐГ§ГіГ«ГјГІГ ГІ ГўГ»Г·ГЁГ±Г«ГҐГ­ГЁГ©:");
 	for (int i=0; i<s.length;i++){
 		if(fr[i]==null)
 		{
-			System.out.println(s[i] + " = " + "Ошибка в выражении!");
+			System.out.println(s[i] + " = " + "Input Error!");
 		}
 		else System.out.println(s[i] + " = " + fr[i]);
 	}
@@ -178,11 +178,11 @@ public static void writeInTxt(Fraction[] fr, String[] s){
 		}
 		PrintWriter out = new PrintWriter(file.getAbsoluteFile());
 		try{
-			out.print("Резульат вычислений:");
+			out.print("The result of the calculation:");
 			for (int i=0; i<s.length;i++){
 				if(fr[i]==null)
 				{
-					out.println(s[i] + " = " + "Ошибка в выражении!" + "\n");
+					out.println(s[i] + " = " + "Input Error!" + "\n");
 				}
 				else out.println(s[i] + " = " + fr[i] + "\n");
 			}	
@@ -194,25 +194,19 @@ public static void writeInTxt(Fraction[] fr, String[] s){
 	}
 	
 }
-public static void writeXML(Fraction[] fr){ //Запись с помощью технологии StAX
+public static void writeXML(Fraction[] fr){ 
 	try{
 		XMLOutputFactory output = XMLOutputFactory.newInstance(); 
 		XMLStreamWriter writer = output.createXMLStreamWriter(new FileWriter("Results_Ivanov.xml")); 
-		// Открываем XML-документ и Пишем корневой элемент Results
 		writer.writeStartDocument("Results"); 
-		// Делаем цикл для дробей 
 		for (int i = 0; i < fr.length; i++) { 
-		// Записываем дробь 
 		writer.writeStartElement("Fraction"); 
-		// Заполняем все тэг для дроби 
 		writer.writeStartElement("Answer"); 
 		String s = fracToString(fr[i]);
 		writer.writeCharacters(s); 
 		writer.writeEndElement(); 
 		}
-		// Закрываем тэг Results 
 		writer.writeEndElement(); 
-		// Закрываем XML-документ 
 		writer.writeEndDocument(); 
 		writer.flush(); 
 		} catch (XMLStreamException | IOException ex) { 
